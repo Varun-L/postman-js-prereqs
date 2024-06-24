@@ -1,0 +1,65 @@
+/*
+JS Function which takes the following as input 
+    1-1|1-2|2-1|2-2|3-1|3-2 
+    generates the below as output
+    randomNumber1-1|randomNumber1-2|randomNumber2-1|randomNumber2-2|randomNumber3-1|randomNumber3-2
+
+    example 2 input
+    1-1|1-2|2-1|2-2
+    example 2 output -
+    randomNumber1-1|randomNumber1-2|randomNumber2-1|randomNumber2-2
+
+    example 3 input
+    1-1|2-1|3-1   
+    example 3 output- 
+    randomNumber1-1|randomNumber2-1|randomNumber3-1     
+
+    where randomNumber1, randomNumber2, randomNumber3 are unique numbers.
+*/
+// function next_up_t_number(t_number) {
+//     var t_number_array = t_number.split("|");
+//     var t_number_array_length = t_number_array.length;
+//     var t_number_array_random_string_final = "";
+//     var currentPrefix = null;
+//     var randomNumber = null;
+
+//     for (var i = 0; i < t_number_array_length; i++) {
+//         var t_number_array_random = t_number_array[i].split("-");
+//         if (currentPrefix !== t_number_array_random[0]) {
+//             currentPrefix = t_number_array_random[0];
+//             randomNumber = Date.now() % 1000; // Generate a new random number
+//         }
+//         var t_number_array_random_string = randomNumber + "-" + t_number_array_random[1];
+//         t_number_array_random_string_final += (i !== 0 ? "|" : "") + t_number_array_random_string;
+//     }
+//     console.log(t_number_array_random_string_final)
+//     return t_number_array_random_string_final;
+// }
+
+// next_up_t_number("1-1|1-2|2-1|2-2|3-1|3-2")
+// next_up_t_number("1-1|1-2|2-1|2-2")
+
+
+function generateRandomizedOutput(input) {
+    let d = Date.now();
+    const tokens = input.split('|');
+    const output = tokens.map((token) => {
+        const [group, subGroup] = token.split('-');       
+        return `T${(d+Number(group)).toString().slice(5)}-${subGroup}`;
+    });
+
+    return output.join('|');
+}
+
+// Example usage
+const example1Input = '1-1|1-2|2-1|2-2|3-1|3-2';
+const example2Input = '1-1|1-2|2-1|2-2';
+const example3Input = '1-1|2-2|3-1|4-2';
+
+const example1Output = generateRandomizedOutput(example1Input);
+const example2Output = generateRandomizedOutput(example2Input);
+const example3Output = generateRandomizedOutput(example3Input);
+
+console.log(example1Output);
+console.log(example2Output);
+console.log(example3Output);
